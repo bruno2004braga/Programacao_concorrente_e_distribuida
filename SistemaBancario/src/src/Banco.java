@@ -12,31 +12,30 @@ package src;
 
 public class Banco {
     public static void main(String[] args) {
-        Conta[] contasClientes = new Conta[5]; // Cria as contas dos clientes
-        for (int i = 0; i < contasClientes.length; i++) {
-            contasClientes[i] = new Conta(1000); // Valor inicial
+        Conta[] conta = new Conta[5]; 
+        for (int i = 0; i < conta.length; i++) {
+            conta[i] = new Conta(1000); 
         }
 
-        Loja[] lojas = new Loja[2]; // Cria as lojas
-        for (int i = 0; i < lojas.length; i++) {
-            lojas[i] = new Loja(0); // Valor inicial
+        Loja[] lj = new Loja[2]; 
+        for (int i = 0; i < lj.length; i++) {
+            lj[i] = new Loja(0); 
         }
 
-        Funcionario[] funcionarios = new Funcionario[4]; // Cria os funcionários
+        Funcionario[] funcionarios = new Funcionario[4]; 
         for (int i = 0; i < funcionarios.length; i++) {
-            Conta salarioLoja = lojas[i / 2].getConta(); // Conta: salário
-            Conta contaInvestimento = new Conta(0); // Investimento
+            Conta salarioLoja = lj[i / 2].getConta(); 
+            Conta contaInvestimento = new Conta(0); 
             funcionarios[i] = new Funcionario(salarioLoja, contaInvestimento);
             funcionarios[i].start();
         }
 
-        Cliente[] clientes = new Cliente[5]; // Cria os clientes
+        Cliente[] clientes = new Cliente[5]; 
         for (int i = 0; i < clientes.length; i++) {
-            clientes[i] = new Cliente(contasClientes[i], lojas);
+            clientes[i] = new Cliente(conta[i], lj);
             clientes[i].start();
         }
 
-        // Executa todas as threads: clientes
         for (Cliente cliente : clientes) {
             try {
                 cliente.join();
@@ -45,22 +44,37 @@ public class Banco {
             }
         }
 
-        // Executa o pagamento das lojas
-        for (Loja loja : lojas) {
-            loja.pagarSalarios(); // Executa o pagamento dos funcionários
+        for (Loja loja : lj) {
+            loja.pagarSalarios(); 
         }
-
-        // Exibe os saldos finais
-        System.out.println("Resultado das operações:");
-        for (int i = 0; i < contasClientes.length; i++) {
-            System.out.println("Cliente " + (i + 1) + ": " + contasClientes[i].getSaldo());
+        
+        System.out.println(" ");
+        System.out.println("===============================================");
+        System.out.println("Resultado das operacoes:");
+        System.out.println("===============================================");
+        
+        for (int i = 0; i < conta.length; i++) {
+            System.out.printf("Cliente %d", (i + 1));
+            System.out.printf(": R$ %.2f \n", conta[i].getSaldo());
         }
-        for (int i = 0; i < lojas.length; i++) {
-            System.out.println("Loja " + (i + 1) + ": " + lojas[i].getConta().getSaldo());
+        
+        System.out.println(" ");
+        
+        for (int i = 0; i < lj.length; i++) {
+            System.out.println("Loja " + (i + 1) + ": " + lj[i].getConta().getSaldo());
         }
+        
+        System.out.println(" ");
+        
         for (int i = 0; i < funcionarios.length; i++) {
-            System.out.println("Funcionário " + (i + 1) + ", loja " + (i / 2 + 1) + ", Salário: " + funcionarios[i].getSalario().getSaldo() + ", Investimento: " + funcionarios[i].getInvestimento().getSaldo());
+            System.out.println("===============================================");
+            System.out.printf("Funcionario %d \n", (i + 1));
+            System.out.printf("Loja %d \n", (i / 2 + 1));
+            System.out.printf("Salario: R$ %.2f \n", funcionarios[i].getSalario().getSaldo());
+            System.out.printf("Valor Investido: R$ %.2f \n", funcionarios[i].getInvestimento().getSaldo());
+            System.out.println("==============================================="); 
+            
         }
     }
-}
+}  
 

@@ -18,33 +18,33 @@ public class Conta {
     private final Lock trava;
 
     public Conta(double saldoInicial) { 
-        this.saldo = saldoInicial; // Atribui ao saldo o valor fornecido 
-        this.trava = new ReentrantLock(); // Inicializa a trava de bloqueio
+        this.saldo = saldoInicial; 
+        this.trava = new ReentrantLock(); 
     }
 
-    public double getSaldo() { // Obtém o saldo da conta
+    public double getSaldo() { 
         return saldo;
     }
 
-    public void investir(double valor) { // Realiza investimentos
-        trava.lock(); // Bloqueia o acesso à conta
+    public void investir(double valor) {
+        trava.lock();
         try {
-            saldo += valor; // Altera o saldo com o valor fornecido
+            saldo += valor; 
         } finally {
-            trava.unlock(); // Libera a trava
+            trava.unlock(); 
         }
     }
 
-    public boolean receber(double valor) { // Recebe valores na conta
-        trava.lock(); // Bloqueia o acesso à conta
+    public boolean receber(double valor) { 
+        trava.lock(); 
         try {
-            if (saldo >= valor) { // Verifica o valor do saldo
-                saldo -= valor; // Retira o valor recebido
-                return true; // Realizou a compra
+            if (saldo >= valor) { 
+                saldo -= valor; 
+                return true; 
             }
-            return false; // Saldo insuficiente
+            return false; 
         } finally {
-            trava.unlock(); // Libera a trava
+            trava.unlock();
         }
     }
 }

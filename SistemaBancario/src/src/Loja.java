@@ -11,10 +11,10 @@ package src;
  */
 
 public class Loja {
-    private Conta conta; // Conta da loja
+    private Conta conta; 
 
     public Loja(double saldoInicial) {
-        this.conta = new Conta(saldoInicial); // Cria o objeto conta da loja
+        this.conta = new Conta(saldoInicial); 
     }
 
     public Conta getConta() {
@@ -22,7 +22,7 @@ public class Loja {
     }
 
     public void pagarSalarios() {
-        // Executa o pagamento dos salários dos funcionários e retorna uma mensagem de confirmação
-        System.out.println("Pagamento dos salários dos funcionários efetuado");
+        System.out.println("======================================");
+        System.out.println("Funcionario recebeu pagamento !!!");
     }
 }

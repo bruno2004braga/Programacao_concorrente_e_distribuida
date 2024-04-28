@@ -11,30 +11,33 @@ package src;
  */
 
 public class Cliente extends Thread {
-    private static int contadorClientes = 0; // Contador de clientes
+    private static int contadorClientes = 0; 
 
-    private int numeroCliente;
+    private int cliente;
     private Conta conta;
     private Loja[] lojas;
 
     public Cliente(Conta conta, Loja[] lojas) {
-        this.numeroCliente = ++contadorClientes; // Incrementa o número do cliente
-        this.conta = conta; // Recebe a conta do cliente
-        this.lojas = lojas; // Recebe as lojas
+        this.cliente = ++contadorClientes; 
+        this.conta = conta; 
+        this.lojas = lojas; 
     }
 
     @Override
     public void run() {
-        while (conta.getSaldo() > 0) { // Repete enquanto houver saldo na conta do cliente
-            double valorCompra = Math.random() < 0.5 ? 100 : 200; // Realiza uma compra aleatória de 100 ou 200
-            int indiceLoja = (int) (Math.random() * lojas.length); // Escolhe uma loja aleatória
+        while (conta.getSaldo() > 0) { 
+            double valorCompra = Math.random() < 0.5 ? 100 : 200; 
+            int indiceLoja = (int) (Math.random() * lojas.length); 
             Loja loja = lojas[indiceLoja];
-            synchronized (loja.getConta()) { // Garante o acesso sincronizado à conta da loja
+            synchronized (loja.getConta()) { 
                 if (conta.receber(valorCompra)) {
-                    loja.getConta().investir(valorCompra); // Realiza a compra na loja
-                    System.out.printf("Cliente %d realizou uma compra na loja %d\nValor da compra: R$ %.2f\n", numeroCliente, indiceLoja + 1, valorCompra); // Exibe o valor da compra
+                    loja.getConta().investir(valorCompra); 
+                    
+                    System.out.printf("\nCliente %d ", cliente); 
+                    System.out.printf("\nComprou na loja %d", indiceLoja +1);
+                    System.out.printf("\nValor: R$ %.2f\n", valorCompra);
                 } else {
-                    break; // Se não houver saldo suficiente, sai do loop
+                    break; 
                 }
             }
         }

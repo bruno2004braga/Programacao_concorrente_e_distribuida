@@ -11,24 +11,29 @@ package src;
  */
 
 public class Funcionario extends Thread {
-    private static int contadorFuncionarios = 0; // Contador de funcionários
+    private static int contador = 0; 
 
-    private int numeroFuncionario;
+    private int funcionario;
     private Conta salario; 
     private Conta investimento;
 
     public Funcionario(Conta salario, Conta investimento) {
-        this.numeroFuncionario = ++contadorFuncionarios; // Incrementa o número do funcionário
-        this.salario = salario; // Recebe a conta do salário
-        this.investimento = investimento; // Recebe a conta do investimento
+        this.funcionario = ++contador; 
+        this.salario = salario; 
+        this.investimento = investimento; 
     }
 
     @Override
-    public void run() { // Executa a thread
-        salario.receber(1400); // Pagamento do salário
-        double valorInvestimento = 1400 * 0.2; // Investimento de 20%
+    public void run() { 
+        salario.receber(1400); 
+        double valorInvestimento = 1400 * 0.2; 
         investimento.investir(valorInvestimento);
-        System.out.printf("Funcionário %d da loja %d:\nSalário = %.2f, Investimento = %.2f \n", numeroFuncionario, numeroFuncionario / 2 + 1, salario.getSaldo(), investimento.getSaldo()); // Retorna os valores relacionados ao funcionário 
+        System.out.println("***********************************");
+        System.out.printf("Funcionario %d \n", funcionario);  
+        System.out.printf("Loja %d \n", funcionario / 2 + 1);
+        System.out.printf("Salario: R$ %.2f \n", salario.getSaldo());
+        System.out.printf("Investiu: R$ %.2f \n", investimento.getSaldo());
+        System.out.println("***********************************");
     }
     
     public Conta getSalario() {
